@@ -1,4 +1,3 @@
-<!-- resources/views/warehouse.blade.php -->
 @extends('layouts.app')
 
 @section('title', 'Gudang Kami')
