@@ -15,22 +15,26 @@ class ShippingPartnerSeeder extends Seeder
         $partners = [
             [
                 'name' => 'JNE Express',
-                'logo' => 'jneexpresslogo.png', // PASTI ADA!
+                'logo' => 'jneexpresslogo.png',
                 'service_type' => 'Express Delivery',
                 'delivery_coverage' => 'Seluruh Indonesia,International'
             ],
             [
                 'name' => 'SPX Express',
-                'logo' => 'spxexpresslogo.png', // PASTI ADA!
+                'logo' => 'spxexpresslogo.png', 
                 'service_type' => 'Cargo Service',
                 'delivery_coverage' => 'Jawa,Bali,Sumatra,Kalimantan'
             ],
             [
                 'name' => 'SiCepat',
-                'logo' => 'sicepat.png', // PASTI ADA!
+                'logo' => 'sicepatlogo.png', 
                 'service_type' => 'Regular Delivery',
                 'delivery_coverage' => 'Jabodetabek,Jawa Timur,Jawa Barat'
             ]
         ];
+
+        foreach ($partners as $partner) {
+            ShippingPartner::create($partner);
+        }
     }
 }

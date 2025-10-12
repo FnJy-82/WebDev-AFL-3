@@ -20,6 +20,7 @@ return new class extends Migration
             $table->text('mission_1');
             $table->text('mission_2');
             $table->text('mission_3');
+            $table->text('mission_4');
             $table->text('address');
             $table->string('city');
             $table->timestamps();

@@ -8,7 +8,7 @@ class Warehouse extends Model
 {
    protected $fillable = [
         'name', 'logo', 'description', 'vision', 
-        'mission_1', 'mission_2', 'mission_3', 
+        'mission_1', 'mission_2', 'mission_3', 'mission_4',
         'address', 'city'
     ];
 
@@ -20,7 +20,7 @@ class Warehouse extends Model
 
     public function getMissionsAttribute()
     {
-        return array_filter([$this->mission_1, $this->mission_2, $this->mission_3]);
+        return array_filter([$this->mission_1, $this->mission_2, $this->mission_3, $this->mission_4]);
     }
 
     public function getFullAddressAttribute()
