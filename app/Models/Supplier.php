@@ -8,11 +8,6 @@ class Supplier extends Model
 {
     protected $fillable = ['name', 'shopee_link'];
 
-    public function products()
-    {
-        return $this->hasMany(Product::class);
-    }
-
     public function getDisplayNameAttribute()
     {
         return ucwords($this->name);

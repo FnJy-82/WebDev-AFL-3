@@ -12,12 +12,12 @@ class SupplierSeeder extends Seeder
     {
         $suppliers = [
             [
-                'name' => 'Batik Pekalongan Indah',
-                'shopee_link' => 'https://shopee.co.id/batikpekalonganindah'
+                'name' => 'ATHYA BATIK',
+                'shopee_link' => 'https://s.shopee.co.id/7pkZRDTG6j?share_channel_code=1'
             ],
             [
-                'name' => 'Sarung Solo Berkualitas',
-                'shopee_link' => 'https://shopee.co.id/sarungsoloberkualitas' 
+                'name' => 'ALFAZ BATIK',
+                'shopee_link' => 'https://s.shopee.co.id/4LAhGqixEM?share_channel_code=1' 
             ]
         ];
 
