@@ -17,12 +17,12 @@
         <div class="col-lg-6 mb-4">
             <div class="card h-100">
                 <div class="card-body">
-                    <h4 class="card-title text-primary">{{ $supplier->display_name }}</h4>
+                    <h4 class="card-title darkred">{{ $supplier->display_name }}</h4>
                     <p class="card-text">Mitra terpercaya dalam menyediakan produk batik berkualitas.</p>
 
                     @if($supplier->shopee_link)
                     <div class="mt-3">
-                        <a href="{{ $supplier->shopee_link }}" target="_blank" class="btn btn-primary">
+                        <a href="{{ $supplier->shopee_link }}" target="_blank" class="btn darkredBg">
                             <i class="fas fa-store me-2"></i>Kunjungi Toko Shopee
                         </a>
                     </div>
@@ -39,7 +39,7 @@
                 <div class="card-body text-center p-5">
                     <h3 class="card-title">Ingin Menjadi Supplier Kami?</h3>
                     <p class="card-text text-muted">Kami selalu terbuka untuk bekerja sama dengan pengrajin batik dan produsen sarung berkualitas.</p>
-                    <button class="btn btn-primary btn-lg">Hubungi Kami</button>
+                    <button class="btn darkredBg btn-lg">Hubungi Kami</button>
                 </div>
             </div>
         </div>

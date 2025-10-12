@@ -6,15 +6,22 @@ use Illuminate\Database\Eloquent\Model;
 
 class Warehouse extends Model
 {
-   protected $fillable = [
-        'name', 'logo', 'description', 'vision', 
-        'mission_1', 'mission_2', 'mission_3', 'mission_4',
-        'address', 'city'
+    protected $fillable = [
+        'name',
+        'logo',
+        'description',
+        'vision',
+        'mission_1',
+        'mission_2',
+        'mission_3',
+        'mission_4',
+        'address',
+        'city'
     ];
-
+    
     public function getLogoUrlAttribute()
     {
-        $githubRawUrl = 'https://github.com/HDSH-Dharma/allstock-warehouse/blob/main/public/images/warehouse/warehouselogo.jpg';
+        $githubRawUrl = 'https://raw.githubusercontent.com/HDSH-Dharma/allstock-warehouse/main/public/images/warehouse/';
         return $githubRawUrl . $this->logo;
     }
 
