@@ -14,7 +14,7 @@ class Warehouse extends Model
 
     public function getLogoUrlAttribute()
     {
-        $githubRawUrl = 'https://raw.githubusercontent.com/HDSH-Dharma/allstock-warehouse/main/public/images/warehouse/';
+        $githubRawUrl = 'https://github.com/HDSH-Dharma/allstock-warehouse/blob/main/public/images/warehouse/warehouselogo.jpg';
         return $githubRawUrl . $this->logo;
     }
 
