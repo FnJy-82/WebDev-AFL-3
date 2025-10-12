@@ -1,6 +1,7 @@
 <!-- resources/views/layouts/app.blade.php -->
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,30 +9,68 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
+        .navbar {
+            background: white;
+        }
+
         .hero-section {
-            background: linear-gradient(135deg, #0d6efd 0%, #0a58ca 100%);
+            background: linear-gradient(135deg, #5b1717 15%, #1e0a8c 100%);
             padding: 100px 0 50px;
         }
+
         .navbar-brand {
             font-weight: 700;
         }
+
         .card {
             transition: transform 0.3s ease;
         }
+
         .card:hover {
             transform: translateY(-5px);
         }
+
         .mission-item {
-            border-left: 4px solid #0d6efd;
+            border-left: 4px solid #900909;
             padding-left: 15px;
+        }
+
+        .darkred {
+            color: #5b1717;
+        }
+
+        .darkredBg {
+            background: #5b1717;
+            color: white;
+        }
+
+        .btn-outline-darkred {
+            color: darkred;
+            border: 1px solid darkred;
+            background-color: transparent;
+        }
+
+        .btn-outline-darkred:hover {
+            background-color: darkred;
+            color: white;
+        }
+
+        html, body {
+            height: 100%;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
         }
     </style>
 </head>
+
 <body>
     <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top">
         <div class="container">
-            <a class="navbar-brand" href="{{ route('home') }}">
+            <a class="navbar-brand darkred" href="{{ route('home') }}">
                 <i class="fas fa-warehouse me-2"></i>
                 Allstock Warehouse
             </a>
@@ -41,16 +80,16 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('home') }}">Home</a>
+                        <a class="nav-link darkred" href="{{ route('home') }}">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('warehouse') }}">Gudang Kami</a>
+                        <a class="nav-link darkred" href="{{ route('warehouse') }}">Gudang Kami</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('suppliers') }}">Supplier</a>
+                        <a class="nav-link darkred" href="{{ route('suppliers') }}">Supplier</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('shipping-partners') }}">Partner Pengiriman</a>
+                        <a class="nav-link darkred" href="{{ route('shipping-partners') }}">Partner Pengiriman</a>
                     </li>
                 </ul>
             </div>
@@ -58,7 +97,7 @@
     </nav>
 
     <!-- Main Content -->
-    <main>
+    <main class="flex-grow-1">
         @yield('content')
     </main>
 
@@ -71,7 +110,7 @@
                     <p class="mb-0">Pusat distribusi batik dan sarung terpercaya di Indonesia</p>
                 </div>
                 <div class="col-md-6 text-md-end">
-                    <p class="mb-0">&copy; 2024 Allstock Warehouse. All rights reserved.</p>
+                    <p class="mb-0">&copy; 2025 Allstock Warehouse. All rights reserved.</p>
                 </div>
             </div>
         </div>
@@ -79,4 +118,5 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>
