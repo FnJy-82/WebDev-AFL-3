@@ -19,7 +19,7 @@
                 <div class="card-body">
                     <img src="{{ $partner->logo_url }}" alt="{{ $partner->name }}" class="img-fluid mb-4" style="max-height: 80px;">
                     <h4 class="card-title">{{ $partner->name }}</h4>
-                    <p class="text-primary fw-semibold">{{ $partner->service_type }}</p>
+                    <p class="darkred fw-semibold">{{ $partner->service_type }}</p>
 
                     <div class="coverage-areas mb-3">
                         <h6 class="text-muted">Cakupan Pengiriman:</h6>
@@ -35,7 +35,7 @@
 
     <div class="row mt-5">
         <div class="col-12">
-            <div class="card bg-primary text-white">
+            <div class="card darkredBg text-white">
                 <div class="card-body text-center p-4">
                     <h3 class="card-title">Layanan Pengiriman Terintegrasi</h3>
                     <p class="card-text">Kami memastikan produk batik Anda sampai dengan aman dan tepat waktu ke seluruh penjuru Indonesia.</p>
