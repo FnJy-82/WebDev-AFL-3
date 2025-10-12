@@ -30,14 +30,14 @@
                 <img src="{{ $warehouse->logo_url }}" alt="{{ $warehouse->name }}" class="img-fluid rounded shadow">
             </div>
             <div class="col-lg-8">
-                <h2 class="fw-bold mb-3">{{ $warehouse->name }}</h2>
+                <h1 class="fw-bold mb-3">{{ $warehouse->name }}</h1>
                 <p class="text-muted mb-4">{{ $warehouse->description }}</p>
                 <div class="row">
                     <div class="col-md-6">
-                        <p><i class="fas fa-map-marker-alt text-primary me-2"></i> {{ $warehouse->full_address }}</p>
+                        <p><i class="fas fa-map-marker-alt darkred me-2"></i> {{ $warehouse->full_address }}</p>
                     </div>
                 </div>
-                <a href="{{ route('warehouse') }}" class="btn btn-primary">Detail Gudang</a>
+                <a href="{{ route('warehouse') }}" class="btn darkredBg">Detail Gudang</a>
             </div>
         </div>
     </div>
@@ -59,7 +59,7 @@
                     <div class="card-body">
                         <h5 class="card-title">{{ $supplier->display_name }}</h5>
                         @if($supplier->shopee_link)
-                        <a href="{{ $supplier->shopee_link }}" target="_blank" class="btn btn-outline-primary btn-sm">
+                        <a href="{{ $supplier->shopee_link }}" target="_blank" class="btn btn-outline-darkred btn-outline-darkred:hover darkred btn-sm">
                             <i class="fas fa-external-link-alt me-1"></i> Kunjungi Shopee
                         </a>
                         @endif
