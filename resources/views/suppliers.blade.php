@@ -1,4 +1,3 @@
-<!-- resources/views/suppliers.blade.php -->
 @extends('layouts.app')
 
 @section('title', 'Supplier Kami')
