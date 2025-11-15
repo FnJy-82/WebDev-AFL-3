@@ -9,6 +9,7 @@ use App\Http\Controllers\StockInController;
 use App\Http\Controllers\StockOutController;
 use App\Http\Controllers\ReceiptController;
 use App\Http\Controllers\ReportController;
+<<<<<<< HEAD
 use App\Http\Controllers\WarehouseController;
 use Illuminate\Support\Facades\Route;
 
@@ -17,6 +18,17 @@ Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 Route::get('/dashboard', function () { return view('dashboard'); })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::get('/warehouse', [WarehouseController::class, 'index'])->name('warehouse');
+=======
+use Illuminate\Support\Facades\Route;
+
+Route::get('/', function () {
+    return view('home');
+});
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
+>>>>>>> b4569a4a55ca2a73235beb801f943aac4244a5cf
 
 Route::middleware(['auth', 'verified'])->group(function () {
 
