@@ -17,22 +17,4 @@ class HomeController extends Controller
 
         return view('home', compact('warehouse', 'suppliers', 'shippingPartners'));
     }
-
-    public function suppliers()
-    {
-        $suppliers = Supplier::all();
-        return view('suppliers', compact('suppliers'));
-    }
-
-    public function warehouse()
-    {
-        $warehouse = Warehouse::first();
-        return view('warehouse', compact('warehouse'));
-    }
-
-    public function shippingPartners()
-    {
-        $shippingPartners = ShippingPartner::all();
-        return view('shipping-partners', compact('shippingPartners'));
-    }
 }

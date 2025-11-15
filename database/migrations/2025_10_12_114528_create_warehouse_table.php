@@ -11,19 +11,35 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('warehouse', function (Blueprint $table) {
-           $table->id();
+        // Schema::create('warehouses', function (Blueprint $table) {
+        //     $table->id();
+        //     $table->string('name');
+        //     $table->string('logo')->nullable();
+        //     $table->text('description');
+        //     $table->text('vision');
+        //     $table->text('mission_1');
+        //     $table->text('mission_2');
+        //     $table->text('mission_3');
+        //     $table->text('mission_4');
+        //     $table->text('address');
+        //     $table->string('city');
+        //     $table->timestamps();
+        // });
+
+        Schema::create('warehouses', function (Blueprint $table) {
+            $table->id();
             $table->string('name');
-            $table->string('logo')->nullable();
-            $table->text('description');
-            $table->text('vision');
-            $table->text('mission_1');
-            $table->text('mission_2');
-            $table->text('mission_3');
-            $table->text('mission_4');
+            $table->string('code')->unique();
             $table->text('address');
             $table->string('city');
+            $table->string('province')->nullable();
+            $table->string('postal_code')->nullable();
+            $table->string('manager_name')->nullable();
+            $table->string('phone')->nullable();
+            $table->integer('capacity')->nullable();
+            $table->boolean('is_active')->default(true);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
@@ -32,6 +48,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('warehouse');
+        Schema::dropIfExists('warehouses');
     }
 };

@@ -10,8 +10,8 @@ class ShippingPartner extends Model
 
     public function getLogoUrlAttribute()
     {
-        $githubRawUrl = 'https://raw.githubusercontent.com/HDSH-Dharma/allstock-warehouse/main/public/images/shipping/';
-        return $githubRawUrl . $this->logo;
+        $imagepath = 'images/shipping/';
+        return $imagepath . $this->logo;
     }
 
     public function getCoverageListAttribute()

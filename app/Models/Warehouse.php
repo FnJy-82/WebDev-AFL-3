@@ -2,29 +2,65 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Warehouse extends Model
 {
-   protected $fillable = [
-        'name', 'logo', 'description', 'vision', 
-        'mission_1', 'mission_2', 'mission_3', 'mission_4',
-        'address', 'city'
+    use HasFactory, SoftDeletes;
+
+    protected $fillable = [
+        'name',
+        'code',
+        'address',
+        'city',
+        'province',
+        'postal_code',
+        'manager_name',
+        'phone',
+        'capacity',
+        'is_active'
     ];
 
-    public function getLogoUrlAttribute()
+    protected $casts = [
+        'is_active' => 'boolean',
+        'capacity' => 'integer',
+    ];
+
+    // Relationships
+    public function products()
     {
-        $githubRawUrl = 'https://github.com/HDSH-Dharma/allstock-warehouse/blob/main/public/images/warehouse/warehouselogo.jpg';
-        return $githubRawUrl . $this->logo;
+        return $this->hasMany(Product::class);
     }
 
-    public function getMissionsAttribute()
+    public function stockIns()
     {
-        return array_filter([$this->mission_1, $this->mission_2, $this->mission_3, $this->mission_4]);
+        return $this->hasMany(StockIn::class);
     }
 
-    public function getFullAddressAttribute()
+    public function stockOuts()
     {
-        return $this->address . ', ' . $this->city;
+        return $this->hasMany(StockOut::class);
+    }
+
+    public function stockMovements()
+    {
+        return $this->hasMany(StockMovement::class);
+    }
+
+    public function dailyReports()
+    {
+        return $this->hasMany(DailyReport::class);
+    }
+
+    public function monthlyReports()
+    {
+        return $this->hasMany(MonthlyReport::class);
+    }
+
+    public function scopeActive($query)
+    {
+        return $query->where('is_active', true);
     }
 }
