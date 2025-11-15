@@ -1,4 +1,3 @@
-<!-- resources/views/shipping-partners.blade.php -->
 @extends('layouts.app')
 
 @section('title', 'Partner Pengiriman')
