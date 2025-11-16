@@ -12,20 +12,57 @@ use App\Http\Controllers\ReportController;
 use App\Http\Controllers\WarehouseController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+// ! FIX 1: Import the Warehouse model at the top
+use App\Models\Warehouse;
 
-Route::get('/dashboard', function () { return view('dashboard'); })->middleware(['auth', 'verified'])->name('dashboard');
+// ! FIX 3: Import the Supplier model
+use App\Models\Supplier;
 
+// ! FIX 5: Import the ShippingPartner model
+use App\Models\ShippingPartner;
+
+/*
+|--------------------------------------------------------------------------
+| Public (Guest) Routes
+|--------------------------------------------------------------------------
+|
+| These routes are accessible to everyone, even if they are not logged in.
+|
+*/
+
+// The main homepage
+// ! FIX 2, 4, & 6: This route is now modified to fetch all three variables
+Route::get('/', function () {
+    // Fetch the first warehouse from your database
+    $warehouse = Warehouse::firstOrFail();
+    
+    // Fetch some suppliers to show on the homepage (e.g., the first 6)
+    $suppliers = Supplier::take(6)->get();
+    
+    // ! Add this line to fetch all shipping partners
+    $shippingPartners = ShippingPartner::all();
+    
+    // Pass all three variables to the 'home' view
+    return view('home', [
+        'warehouse' => $warehouse,
+        'suppliers' => $suppliers,
+        'shippingPartners' => $shippingPartners // ! Add this line
+    ]);
+})->name('home');
+
+// The public warehouse info page
 Route::get('/warehouse', [WarehouseController::class, 'index'])->name('warehouse');
 
-Route::get('/', function () {
-    return view('home');
-});
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
-
+/*
+|--------------------------------------------------------------------------
+| Authenticated Routes
+|--------------------------------------------------------------------------
+|
+| All routes in this group require the user to be logged in.
+| The 'verified' middleware means they must also have verified their email.
+|
+*/
 Route::middleware(['auth', 'verified'])->group(function () {
 
     // Dashboard
@@ -36,22 +73,24 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    // Categories - Route Model Binding
+    // Categories
     Route::resource('categories', CategoryController::class);
 
-    // Suppliers - Route Model Binding
+    // Suppliers
+    // OLD: Route::get('/suppliers', [SupplierController::class, 'index'])->name('suppliers');
+    // NEW: Use Route::resource to match the other models and create 'suppliers.index'
     Route::resource('suppliers', SupplierController::class);
 
-    // Products - Route Model Binding (with image CRUD)
+    // Products
     Route::resource('products', ProductController::class);
 
-    // Stock In - Route Model Binding
+    // Stock In
     Route::resource('stock-in', StockInController::class);
 
-    // Stock Out - Route Model Binding
+    // Stock Out
     Route::resource('stock-out', StockOutController::class);
 
-    // Receipts - Route Model Binding
+    // Receipts
     Route::resource('receipts', ReceiptController::class);
 
     // Reports
@@ -62,7 +101,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/export', [ReportController::class, 'export'])->name('export');
     });
 
-    // Additional API endpoints for AJAX
+    // API endpoints for AJAX
     Route::prefix('api')->name('api.')->group(function () {
         Route::get('/products/{product}', function(\App\Models\Product $product) {
             return response()->json($product->load('category', 'warehouse'));
@@ -79,4 +118,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
     });
 });
 
+
+/*
+|--------------------------------------------------------------------------
+| Auth Routes (Login, Register, etc.)
+|--------------------------------------------------------------------------
+|
+| This file is included from Breeze and handles login, registration, etc.
+|
+*/
 require __DIR__.'/auth.php';
