@@ -59,7 +59,7 @@ class ProfileController extends Controller
             'password' => ['required', 'current_password'],
         ]);
 
-        $user->forceFill([
+        Auth::user()->forceFill([
             'is_active' => false, // Set to inactive
         ])->save();
 
