@@ -22,7 +22,7 @@ class SupplierController extends Controller
             ->latest()
             ->paginate(10);
 
-        return view('suppliers', compact('suppliers', 'search'));
+        return view('suppliers.index', compact('suppliers', 'search'));
     }
 
     public function create()
@@ -34,13 +34,13 @@ class SupplierController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255|unique:suppliers,name',
-            'shopee_link' => 'nullable|url',
-            'contact_person' => 'nullable|string|max:255',
-            'phone' => 'nullable|string|max:20',
-            'email' => 'nullable|email|max:255',
-            'address' => 'nullable|string',
-            'city' => 'nullable|string|max:100',
-            'is_active' => 'boolean',
+            'shopee_link' => 'nullable|url|max:255',
+            'contact_person' => 'required|string|max:255',
+            'phone' => 'required|string|max:20',
+            'email' => 'required|email|max:255|unique:suppliers,email',
+            'address' => 'required|string',
+            'city' => 'required|string|max:255',
+            'is_active' => 'boolean'
         ]);
 
         $validated['slug'] = Str::slug($validated['name']);
@@ -74,13 +74,13 @@ class SupplierController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255|unique:suppliers,name,' . $supplier->id,
-            'shopee_link' => 'nullable|url',
-            'contact_person' => 'nullable|string|max:255',
-            'phone' => 'nullable|string|max:20',
-            'email' => 'nullable|email|max:255',
-            'address' => 'nullable|string',
-            'city' => 'nullable|string|max:100',
-            'is_active' => 'boolean',
+            'shopee_link' => 'nullable|url|max:255',
+            'contact_person' => 'required|string|max:255',
+            'phone' => 'required|string|max:20',
+            'email' => 'required|email|max:255|unique:suppliers,email,' . $supplier->id,
+            'address' => 'required|string',
+            'city' => 'required|string|max:255',
+            'is_active' => 'boolean'
         ]);
 
         $validated['slug'] = Str::slug($validated['name']);
