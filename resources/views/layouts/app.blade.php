@@ -132,7 +132,7 @@
         <div class="topbar">
             <div class="d-flex justify-content-between align-items-center">
                 <div>
-                    <h4 class="mb-0">@yield('page-title', 'Dashboard')</h4>
+                    <h4 class="mb-0">@yield('page-title', 'Home')</h4>
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb mb-0">
                             @yield('breadcrumb')
