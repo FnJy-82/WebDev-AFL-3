@@ -13,9 +13,11 @@
                 <a href="{{ route('warehouse') }}" class="btn btn-light btn-lg me-3">
                     <i class="fas fa-info-circle me-2"></i>Pelajari Lebih
                 </a>
-                <a href="{{ route('suppliers') }}" class="btn btn-outline-light btn-lg">
-                    <i class="fas fa-handshake me-2"></i>Lihat Supplier
-                </a>
+                @auth
+                    <a href="{{ route('suppliers.index') }}" class="btn btn-outline-light btn-lg">
+                        <i class="fas fa-handshake me-2"></i>Lihat Supplier
+                    </a>
+                @endauth
             </div>
         </div>
     </div>
