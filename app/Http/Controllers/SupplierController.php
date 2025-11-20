@@ -9,103 +9,103 @@ use Illuminate\Support\Str;
 
 class SupplierController extends Controller
 {
-    // public function index(Request $request)
-    // {
-    //     $search = $request->get('search');
+    public function index(Request $request)
+    {
+        $search = $request->get('search');
 
-    //     $suppliers = Supplier::withCount('products')
-    //         ->when($search, function ($query) use ($search) {
-    //             $query->where('name', 'like', "%{$search}%")
-    //                 ->orWhere('city', 'like', "%{$search}%")
-    //                 ->orWhere('contact_person', 'like', "%{$search}%");
-    //         })
-    //         ->latest()
-    //         ->paginate(10);
+        $suppliers = Supplier::withCount('products')
+            ->when($search, function ($query) use ($search) {
+                $query->where('name', 'like', "%{$search}%")
+                    ->orWhere('city', 'like', "%{$search}%")
+                    ->orWhere('contact_person', 'like', "%{$search}%");
+            })
+            ->latest()
+            ->paginate(10);
 
-    //     return view('suppliers', compact('suppliers', 'search'));
-    // }
+        return view('suppliers', compact('suppliers', 'search'));
+    }
 
-    // public function create()
-    // {
-    //     return view('suppliers.create');
-    // }
+    public function create()
+    {
+        return view('suppliers.create');
+    }
 
-    // public function store(Request $request)
-    // {
-    //     $validated = $request->validate([
-    //         'name' => 'required|string|max:255|unique:suppliers,name',
-    //         'shopee_link' => 'nullable|url',
-    //         'contact_person' => 'nullable|string|max:255',
-    //         'phone' => 'nullable|string|max:20',
-    //         'email' => 'nullable|email|max:255',
-    //         'address' => 'nullable|string',
-    //         'city' => 'nullable|string|max:100',
-    //         'is_active' => 'boolean',
-    //     ]);
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'name' => 'required|string|max:255|unique:suppliers,name',
+            'shopee_link' => 'nullable|url',
+            'contact_person' => 'nullable|string|max:255',
+            'phone' => 'nullable|string|max:20',
+            'email' => 'nullable|email|max:255',
+            'address' => 'nullable|string',
+            'city' => 'nullable|string|max:100',
+            'is_active' => 'boolean',
+        ]);
 
-    //     $validated['slug'] = Str::slug($validated['name']);
+        $validated['slug'] = Str::slug($validated['name']);
 
-    //     $supplier = Supplier::create($validated);
+        $supplier = Supplier::create($validated);
 
-    //     ActivityLog::log('create', $supplier, "Created supplier: {$supplier->name}");
+        ActivityLog::log('create', $supplier, "Created supplier: {$supplier->name}");
 
-    //     return redirect()->route('suppliers.index')
-    //         ->with('success', 'Supplier created successfully.');
-    // }
+        return redirect()->route('suppliers.index')
+            ->with('success', 'Supplier created successfully.');
+    }
 
-    // public function show(Supplier $supplier)
-    // {
-    //     $supplier->load(['products' => function ($query) {
-    //         $query->with('category')->latest()->paginate(10);
-    //     }]);
+    public function show(Supplier $supplier)
+    {
+        $supplier->load(['products' => function ($query) {
+            $query->with('category')->latest()->paginate(10);
+        }]);
 
-    //     $totalSupplied = $supplier->stockIns()->sum('quantity');
-    //     $totalValue = $supplier->stockIns()->sum('total_price');
+        $totalSupplied = $supplier->stockIns()->sum('quantity');
+        $totalValue = $supplier->stockIns()->sum('total_price');
 
-    //     return view('suppliers.show', compact('supplier', 'totalSupplied', 'totalValue'));
-    // }
+        return view('suppliers.show', compact('supplier', 'totalSupplied', 'totalValue'));
+    }
 
-    // public function edit(Supplier $supplier)
-    // {
-    //     return view('suppliers.edit', compact('supplier'));
-    // }
+    public function edit(Supplier $supplier)
+    {
+        return view('suppliers.edit', compact('supplier'));
+    }
 
-    // public function update(Request $request, Supplier $supplier)
-    // {
-    //     $validated = $request->validate([
-    //         'name' => 'required|string|max:255|unique:suppliers,name,' . $supplier->id,
-    //         'shopee_link' => 'nullable|url',
-    //         'contact_person' => 'nullable|string|max:255',
-    //         'phone' => 'nullable|string|max:20',
-    //         'email' => 'nullable|email|max:255',
-    //         'address' => 'nullable|string',
-    //         'city' => 'nullable|string|max:100',
-    //         'is_active' => 'boolean',
-    //     ]);
+    public function update(Request $request, Supplier $supplier)
+    {
+        $validated = $request->validate([
+            'name' => 'required|string|max:255|unique:suppliers,name,' . $supplier->id,
+            'shopee_link' => 'nullable|url',
+            'contact_person' => 'nullable|string|max:255',
+            'phone' => 'nullable|string|max:20',
+            'email' => 'nullable|email|max:255',
+            'address' => 'nullable|string',
+            'city' => 'nullable|string|max:100',
+            'is_active' => 'boolean',
+        ]);
 
-    //     $validated['slug'] = Str::slug($validated['name']);
+        $validated['slug'] = Str::slug($validated['name']);
 
-    //     $supplier->update($validated);
+        $supplier->update($validated);
 
-    //     ActivityLog::log('update', $supplier, "Updated supplier: {$supplier->name}");
+        ActivityLog::log('update', $supplier, "Updated supplier: {$supplier->name}");
 
-    //     return redirect()->route('suppliers.index')
-    //         ->with('success', 'Supplier updated successfully.');
-    // }
+        return redirect()->route('suppliers.index')
+            ->with('success', 'Supplier updated successfully.');
+    }
 
-    // public function destroy(Supplier $supplier)
-    // {
-    //     if ($supplier->products()->count() > 0) {
-    //         return redirect()->route('suppliers.index')
-    //             ->with('error', 'Cannot delete supplier with associated products.');
-    //     }
+    public function destroy(Supplier $supplier)
+    {
+        if ($supplier->products()->count() > 0) {
+            return redirect()->route('suppliers.index')
+                ->with('error', 'Cannot delete supplier with associated products.');
+        }
 
-    //     $name = $supplier->name;
-    //     $supplier->delete();
+        $name = $supplier->name;
+        $supplier->delete();
 
-    //     ActivityLog::log('delete', $supplier, "Deleted supplier: {$name}");
+        ActivityLog::log('delete', $supplier, "Deleted supplier: {$name}");
 
-    //     return redirect()->route('suppliers.index')
-    //         ->with('success', 'Supplier deleted successfully.');
-    // }
+        return redirect()->route('suppliers.index')
+            ->with('success', 'Supplier deleted successfully.');
+    }
 }
