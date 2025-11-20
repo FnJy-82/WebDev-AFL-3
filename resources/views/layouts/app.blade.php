@@ -10,6 +10,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
         :root {
@@ -91,18 +92,19 @@
 <body>
     <!-- Sidebar -->
     <div class="sidebar">
-        <div class="logo">
-            <i class="bi bi-box-seam"></i> Allstock
-        </div>
+
+        <a class="nav-link {{ request()->routeIs('home') ? 'active' : '' }}" href="{{ route('home') }}">
+            <div class="logo">
+                <i class="bi bi-box-seam"></i> Allstock
+            </div>
+        </a>
+
         <nav class="nav flex-column">
             <a class="nav-link {{ request()->routeIs('dashboard') ? 'active' : '' }}" href="{{ route('dashboard') }}">
                 <i class="bi bi-speedometer2"></i> Dashboard
             </a>
             <a class="nav-link {{ request()->routeIs('products.*') ? 'active' : '' }}" href="{{ route('products.index') }}">
                 <i class="bi bi-box"></i> Products
-            </a>
-            <a class="nav-link {{ request()->routeIs('categories.*') ? 'active' : '' }}" href="{{ route('categories.index') }}">
-                <i class="bi bi-grid"></i> Categories
             </a>
             <a class="nav-link {{ request()->routeIs('suppliers.*') ? 'active' : '' }}" href="{{ route('suppliers.index') }}">
                 <i class="bi bi-truck"></i> Suppliers

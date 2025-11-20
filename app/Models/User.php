@@ -19,4 +19,9 @@ class User extends Authenticatable
         'phone',
         'last_login_at'
     ];
+
+    protected $hidden = [
+        'password',
+        'remember_token'
+    ];
 }

@@ -110,7 +110,7 @@
             @endforelse
         </div>
 
-        <div class="mt-4">
+        <div class="d-flex justify-content-center mt-5">
             {{ $products->links() }}
         </div>
     </div>

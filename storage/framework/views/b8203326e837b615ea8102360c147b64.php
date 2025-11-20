@@ -1,6 +1,3 @@
-<!-- resources/views/home.blade.php -->
-
-
 <?php $__env->startSection('title', 'Home'); ?>
 <?php $__env->startSection('content'); ?>
 
@@ -14,9 +11,11 @@
                 <a href="<?php echo e(route('warehouse')); ?>" class="btn btn-light btn-lg me-3">
                     <i class="fas fa-info-circle me-2"></i>Pelajari Lebih
                 </a>
-                <a href="<?php echo e(route('suppliers')); ?>" class="btn btn-outline-light btn-lg">
-                    <i class="fas fa-handshake me-2"></i>Lihat Supplier
-                </a>
+                <?php if(auth()->guard()->check()): ?>
+                    <a href="<?php echo e(route('suppliers.index')); ?>" class="btn btn-outline-light btn-lg">
+                        <i class="fas fa-handshake me-2"></i>Lihat Supplier
+                    </a>
+                <?php endif; ?>
             </div>
         </div>
     </div>

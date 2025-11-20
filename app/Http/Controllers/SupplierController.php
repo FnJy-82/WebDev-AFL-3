@@ -22,7 +22,7 @@ class SupplierController extends Controller
             ->latest()
             ->paginate(10);
 
-        return view('suppliers.index', compact('suppliers', 'search'));
+        return view('suppliers', compact('suppliers', 'search'));
     }
 
     public function create()

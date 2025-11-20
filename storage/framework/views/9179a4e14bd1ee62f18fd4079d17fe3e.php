@@ -10,6 +10,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
         :root {
@@ -91,18 +92,19 @@
 <body>
     <!-- Sidebar -->
     <div class="sidebar">
-        <div class="logo">
-            <i class="bi bi-box-seam"></i> Allstock
-        </div>
+
+        <a class="nav-link <?php echo e(request()->routeIs('home') ? 'active' : ''); ?>" href="<?php echo e(route('home')); ?>">
+            <div class="logo">
+                <i class="bi bi-box-seam"></i> Allstock
+            </div>
+        </a>
+
         <nav class="nav flex-column">
             <a class="nav-link <?php echo e(request()->routeIs('dashboard') ? 'active' : ''); ?>" href="<?php echo e(route('dashboard')); ?>">
                 <i class="bi bi-speedometer2"></i> Dashboard
             </a>
             <a class="nav-link <?php echo e(request()->routeIs('products.*') ? 'active' : ''); ?>" href="<?php echo e(route('products.index')); ?>">
                 <i class="bi bi-box"></i> Products
-            </a>
-            <a class="nav-link <?php echo e(request()->routeIs('categories.*') ? 'active' : ''); ?>" href="<?php echo e(route('categories.index')); ?>">
-                <i class="bi bi-grid"></i> Categories
             </a>
             <a class="nav-link <?php echo e(request()->routeIs('suppliers.*') ? 'active' : ''); ?>" href="<?php echo e(route('suppliers.index')); ?>">
                 <i class="bi bi-truck"></i> Suppliers
@@ -137,24 +139,37 @@
                         </ol>
                     </nav>
                 </div>
-                <div class="dropdown">
-                    <button class="btn btn-light dropdown-toggle" type="button" data-bs-toggle="dropdown">
-                        <i class="bi bi-person-circle"></i> <?php echo e(Auth::user()->name); ?>
+                <?php if(auth()->guard()->check()): ?>
+                    
+                    <div class="dropdown">
+                        <button class="btn btn-light dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                            <i class="bi bi-person-circle"></i> <?php echo e(Auth::user()->name); ?>
 
-                    </button>
-                    <ul class="dropdown-menu dropdown-menu-end">
-                        <li><a class="dropdown-item" href="<?php echo e(route('profile.edit')); ?>"><i class="bi bi-person"></i> Profile</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li>
-                            <form method="POST" action="<?php echo e(route('logout')); ?>">
-                                <?php echo csrf_field(); ?>
-                                <button type="submit" class="dropdown-item text-danger">
-                                    <i class="bi bi-box-arrow-right"></i> Logout
-                                </button>
-                            </form>
-                        </li>
-                    </ul>
-                </div>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" href="<?php echo e(route('profile.edit')); ?>"><i class="bi bi-person"></i> Profile</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li>
+                                <form method="POST" action="<?php echo e(route('logout')); ?>">
+                                    <?php echo csrf_field(); ?>
+                                    <button type="submit" class="dropdown-item text-danger">
+                                        <i class="bi bi-box-arrow-right"></i> Logout
+                                    </button>
+                                </form>
+                            </li>
+                        </ul>
+                    </div>
+                <?php else: ?>
+                    
+                    <div>
+                        <a href="<?php echo e(route('login')); ?>" class="btn btn-outline-light me-2">
+                            <i class="bi bi-box-arrow-in-right"></i> Login
+                        </a>
+                        <a href="<?php echo e(route('register')); ?>" class="btn btn-light">
+                            <i class="bi bi-person-plus"></i> Register
+                        </a>
+                    </div>
+                <?php endif; ?>
             </div>
         </div>
 

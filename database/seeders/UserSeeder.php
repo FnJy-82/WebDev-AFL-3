@@ -14,7 +14,7 @@ class UserSeeder extends Seeder
         User::create([
             'name' => 'Admin Allstock',
             'email' => 'admin@allstock.com',
-            'password' => Hash::make('secret'),
+            'password' => Hash::make('12345678'),
             'role' => 'admin',
             'is_active' => true,
             'phone' => '081234567890',
@@ -24,7 +24,7 @@ class UserSeeder extends Seeder
         User::create([
             'name' => 'Staff Gudang',
             'email' => 'staff@allstock.com',
-            'password' => Hash::make('secret'),
+            'password' => Hash::make('qwertyuiop'),
             'role' => 'staff',
             'is_active' => true,
             'phone' => '081234567891',
