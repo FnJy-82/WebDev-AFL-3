@@ -1,123 +1,188 @@
-<!-- resources/views/layouts/app.blade.php -->
 <!DOCTYPE html>
-<html lang="id">
-
+<html lang="<?php echo e(str_replace('_', '-', app()->getLocale())); ?>">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Allstock Warehouse - <?php echo $__env->yieldContent('title', 'Home'); ?></title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="<?php echo e(csrf_token()); ?>">
+    <title><?php echo e(config('app.name', 'Allstock Warehouse')); ?> - <?php echo $__env->yieldContent('title', 'Dashboard'); ?></title>
+
+    <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+
     <style>
-        .navbar {
+        :root {
+            --primary-color: #4F46E5;
+            --sidebar-width: 260px;
+        }
+        body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100vh;
+            width: var(--sidebar-width);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 1.5rem;
+            overflow-y: auto;
+            z-index: 1000;
+        }
+        .sidebar .logo { color: white; font-size: 1.5rem; font-weight: 700; margin-bottom: 2rem; }
+        .sidebar .nav-link {
+            color: rgba(255,255,255,0.8);
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            margin-bottom: 0.5rem;
+            transition: all 0.3s;
+        }
+        .sidebar .nav-link:hover, .sidebar .nav-link.active {
+            background: rgba(255,255,255,0.1);
+            color: white;
+        }
+        .main-content {
+            margin-left: var(--sidebar-width);
+            padding: 2rem;
+            min-height: 100vh;
+            background: #f8f9fa;
+        }
+        .topbar {
             background: white;
+            padding: 1rem 2rem;
+            margin: -2rem -2rem 2rem -2rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
         }
-
-        .hero-section {
-            background: linear-gradient(135deg, #5b1717 15%, #1e0a8c 100%);
-            padding: 100px 0 50px;
+        .stat-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            transition: transform 0.3s;
         }
-
-        .navbar-brand {
-            font-weight: 700;
-        }
-
-        .card {
-            transition: transform 0.3s ease;
-        }
-
-        .card:hover {
-            transform: translateY(-5px);
-        }
-
-        .mission-item {
-            border-left: 4px solid #900909;
-            padding-left: 15px;
-        }
-
-        .darkred {
-            color: #5b1717;
-        }
-
-        .darkredBg {
-            background: #5b1717;
-            color: white;
-        }
-
-        .btn-outline-darkred {
-            color: darkred;
-            border: 1px solid darkred;
-            background-color: transparent;
-        }
-
-        .btn-outline-darkred:hover {
-            background-color: darkred;
-            color: white;
-        }
-
-        html, body {
-            height: 100%;
-        }
-
-        body {
+        .stat-card:hover { transform: translateY(-5px); }
+        .stat-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
             display: flex;
-            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+        .badge-status {
+            padding: 0.35rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        .table-hover tbody tr:hover { background-color: #f8f9fa; }
+        .btn-gradient {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            color: white;
+        }
+        .btn-gradient:hover {
+            background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+            color: white;
         }
     </style>
+    <?php echo $__env->yieldPushContent('styles'); ?>
 </head>
-
 <body>
-    <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-light fixed-top">
-        <div class="container">
-            <a class="navbar-brand darkred" href="<?php echo e(route('home')); ?>">
-                <i class="fas fa-warehouse me-2"></i>
-                Allstock Warehouse
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link darkred" href="<?php echo e(route('home')); ?>">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link darkred" href="<?php echo e(route('warehouse')); ?>">Gudang Kami</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link darkred" href="<?php echo e(route('suppliers')); ?>">Supplier</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link darkred" href="<?php echo e(route('shipping-partners')); ?>">Partner Pengiriman</a>
-                    </li>
-                </ul>
-            </div>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="logo">
+            <i class="bi bi-box-seam"></i> Allstock
         </div>
-    </nav>
+        <nav class="nav flex-column">
+            <a class="nav-link <?php echo e(request()->routeIs('dashboard') ? 'active' : ''); ?>" href="<?php echo e(route('dashboard')); ?>">
+                <i class="bi bi-speedometer2"></i> Dashboard
+            </a>
+            <a class="nav-link <?php echo e(request()->routeIs('products.*') ? 'active' : ''); ?>" href="<?php echo e(route('products.index')); ?>">
+                <i class="bi bi-box"></i> Products
+            </a>
+            <a class="nav-link <?php echo e(request()->routeIs('categories.*') ? 'active' : ''); ?>" href="<?php echo e(route('categories.index')); ?>">
+                <i class="bi bi-grid"></i> Categories
+            </a>
+            <a class="nav-link <?php echo e(request()->routeIs('suppliers.*') ? 'active' : ''); ?>" href="<?php echo e(route('suppliers.index')); ?>">
+                <i class="bi bi-truck"></i> Suppliers
+            </a>
+            <hr style="border-color: rgba(255,255,255,0.2);">
+            <a class="nav-link <?php echo e(request()->routeIs('stock-in.*') ? 'active' : ''); ?>" href="<?php echo e(route('stock-in.index')); ?>">
+                <i class="bi bi-arrow-down-circle"></i> Stock In
+            </a>
+            <a class="nav-link <?php echo e(request()->routeIs('stock-out.*') ? 'active' : ''); ?>" href="<?php echo e(route('stock-out.index')); ?>">
+                <i class="bi bi-arrow-up-circle"></i> Stock Out
+            </a>
+            <a class="nav-link <?php echo e(request()->routeIs('receipts.*') ? 'active' : ''); ?>" href="<?php echo e(route('receipts.index')); ?>">
+                <i class="bi bi-receipt"></i> Receipts
+            </a>
+            <hr style="border-color: rgba(255,255,255,0.2);">
+            <a class="nav-link <?php echo e(request()->routeIs('reports.*') ? 'active' : ''); ?>" href="<?php echo e(route('reports.index')); ?>">
+                <i class="bi bi-file-earmark-bar-graph"></i> Reports
+            </a>
+        </nav>
+    </div>
 
     <!-- Main Content -->
-    <main class="flex-grow-1">
-        <?php echo $__env->yieldContent('content'); ?>
-    </main>
-
-    <!-- Footer -->
-    <footer class="bg-dark text-white py-4 mt-5">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-6">
-                    <h5><i class="fas fa-warehouse me-2"></i>Allstock Warehouse</h5>
-                    <p class="mb-0">Pusat distribusi batik dan sarung terpercaya di Indonesia</p>
+    <div class="main-content">
+        <!-- Topbar -->
+        <div class="topbar">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <h4 class="mb-0"><?php echo $__env->yieldContent('page-title', 'Dashboard'); ?></h4>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb mb-0">
+                            <?php echo $__env->yieldContent('breadcrumb'); ?>
+                        </ol>
+                    </nav>
                 </div>
-                <div class="col-md-6 text-md-end">
-                    <p class="mb-0">&copy; 2025 Allstock Warehouse. All rights reserved.</p>
+                <div class="dropdown">
+                    <button class="btn btn-light dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                        <i class="bi bi-person-circle"></i> <?php echo e(Auth::user()->name); ?>
+
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <li><a class="dropdown-item" href="<?php echo e(route('profile.edit')); ?>"><i class="bi bi-person"></i> Profile</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li>
+                            <form method="POST" action="<?php echo e(route('logout')); ?>">
+                                <?php echo csrf_field(); ?>
+                                <button type="submit" class="dropdown-item text-danger">
+                                    <i class="bi bi-box-arrow-right"></i> Logout
+                                </button>
+                            </form>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
-    </footer>
 
+        <!-- Alerts -->
+        <?php if(session('success')): ?>
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <i class="bi bi-check-circle"></i> <?php echo e(session('success')); ?>
+
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+        <?php endif; ?>
+
+        <?php if(session('error')): ?>
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <i class="bi bi-exclamation-triangle"></i> <?php echo e(session('error')); ?>
+
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+        <?php endif; ?>
+
+        <!-- Page Content -->
+        <?php echo $__env->yieldContent('content'); ?>
+    </div>
+
+    <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.js"></script>
+    <?php echo $__env->yieldPushContent('scripts'); ?>
 </body>
-
 </html>
 <?php /**PATH C:\Users\Lenovo\Herd\allstock-warehouse\resources\views/layouts/app.blade.php ENDPATH**/ ?>
