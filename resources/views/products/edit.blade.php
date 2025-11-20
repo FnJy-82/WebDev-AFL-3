@@ -1,14 +1,16 @@
-
 @extends('layouts.app')
 
 @section('title', 'Edit Product')
 @section('page-title', 'Edit Product')
 
 @section('content')
-    <form action="{{ route('products.update', $product) }}" method="POST" enctype="multipart/form-data">
-    @csrf
-    @method('PUT')
-        <div class="row">
+<div class="card border-0 shadow-sm">
+    <div class="card-body">
+        <form action="{{ route('products.update', $product) }}" method="POST" enctype="multipart/form-data">
+            @csrf
+            @method('PUT')
+
+            <div class="row">
                 <div class="col-md-8">
                     <h5 class="mb-4">Product Information</h5>
 
@@ -140,7 +142,10 @@
                         <label class="form-label">Suppliers</label>
                         <select class="form-select @error('suppliers') is-invalid @enderror" name="suppliers[]" multiple>
                             @foreach($suppliers as $supplier)
-                                <option value="{{ $supplier->id }}">{{ $supplier->name }}</option>
+                                <option value="{{ $supplier->id }}" 
+                                    {{ collect(old('suppliers', $product->suppliers->pluck('id')))->contains($supplier->id) ? 'selected' : '' }}>
+                                    {{ $supplier->name }}
+                                </option>
                             @endforeach
                         </select>
                         <small class="text-muted">Hold Ctrl to select multiple</small>
@@ -153,8 +158,25 @@
                 <div class="col-md-4">
                     <h5 class="mb-4">Product Image</h5>
 
+                    {{-- 1. Display Existing Image --}}
+                    @if($product->image)
+                        <div class="mb-3 p-3 border rounded bg-light text-center" id="currentImageContainer">
+                            <label class="form-label text-muted small">Current Image</label>
+                            <img src="{{ asset('storage/products/' . $product->image) }}" 
+                                 class="img-fluid rounded d-block mx-auto mb-2" 
+                                 style="max-height: 200px;"
+                                 onerror="this.style.display='none';">
+                            
+                            <div class="form-check form-switch d-inline-block text-start mt-2">
+                                <input class="form-check-input" type="checkbox" role="switch" id="deleteImage" name="delete_image" value="1">
+                                <label class="form-check-label text-danger" for="deleteImage">Delete this image</label>
+                            </div>
+                        </div>
+                    @endif
+
+                    {{-- 2. Upload New Image --}}
                     <div class="mb-3">
-                        <label class="form-label">Upload Image</label>
+                        <label class="form-label">Change Image</label>
                         <input type="file" class="form-control @error('image') is-invalid @enderror" name="image" accept="image/*" onchange="previewImage(event)">
                         <small class="text-muted">Max 2MB (JPG, PNG, GIF)</small>
                         @error('image')
@@ -162,12 +184,14 @@
                         @enderror
                     </div>
 
-                    <div id="imagePreview" class="border rounded p-3 text-center" style="display: none;">
+                    {{-- 3. Preview New Image --}}
+                    <div id="imagePreview" class="border rounded p-3 text-center bg-white shadow-sm" style="display: none;">
+                        <label class="form-label text-muted small">New Image Preview</label>
                         <img id="preview" src="" class="img-fluid rounded" style="max-height: 300px;">
                     </div>
 
-                    <div class="form-check mb-3">
-                        <input class="form-check-input" type="checkbox" name="is_active" value="1" checked id="isActive">
+                    <div class="form-check mb-3 mt-3">
+                        <input class="form-check-input" type="checkbox" name="is_active" value="1" {{ old('is_active', $product->is_active) ? 'checked' : '' }} id="isActive">
                         <label class="form-check-label" for="isActive">
                             Active Product
                         </label>
@@ -182,9 +206,38 @@
                     <i class="bi bi-x-circle"></i> Cancel
                 </a>
                 <button type="submit" class="btn btn-gradient">
-                    <i class="bi bi-save"></i> Save Product
+                    <i class="bi bi-save"></i> Update Product
                 </button>
             </div>
-        </div>
-    </form>
+        </form>
+    </div>
+</div>
 @endsection
+
+@push('scripts')
+<script>
+    function previewImage(event) {
+        const file = event.target.files[0];
+        const previewContainer = document.getElementById('imagePreview');
+        const currentImageContainer = document.getElementById('currentImageContainer');
+        const deleteCheckbox = document.getElementById('deleteImage');
+
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                previewContainer.style.display = 'block';
+                document.getElementById('preview').src = e.target.result;
+                
+                // If we select a new image, we can hide the "Delete" checkbox because
+                // the new image will replace the old one anyway.
+                if(deleteCheckbox) {
+                    deleteCheckbox.checked = false;
+                    deleteCheckbox.disabled = true;
+                    if(currentImageContainer) currentImageContainer.style.opacity = '0.5';
+                }
+            }
+            reader.readAsDataURL(file);
+        }
+    }
+</script>
+@endpush
