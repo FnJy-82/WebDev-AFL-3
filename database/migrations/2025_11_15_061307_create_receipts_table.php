@@ -11,23 +11,23 @@ return new class extends Migration
      */
     public function up(): void
     {
-        // Schema::create('receipts', function (Blueprint $table) {
-        //     $table->id();
-        //     $table->foreignId('stock_out_id')->constrained('stock_out')->onDelete('cascade');
-        //     $table->string('receipt_number')->unique();
-        //     $table->string('courier')->nullable(); // JNE, JNT, SiCepat, dll
-        //     $table->string('tracking_number')->nullable();
-        //     $table->date('shipped_date')->nullable();
-        //     $table->date('estimated_delivery')->nullable();
-        //     $table->date('actual_delivery')->nullable();
-        //     $table->string('status')->default('pending'); // pending, in_transit, delivered
-        //     $table->decimal('shipping_cost', 12, 2)->default(0);
-        //     $table->text('notes')->nullable();
-        //     $table->timestamps();
+        Schema::create('receipts', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('stock_out_id')->constrained('stock_out')->onDelete('cascade');
+            $table->string('receipt_number')->unique();
+            $table->string('courier')->nullable(); // JNE, JNT, SiCepat, dll
+            $table->string('tracking_number')->nullable();
+            $table->date('shipped_date')->nullable();
+            $table->date('estimated_delivery')->nullable();
+            $table->date('actual_delivery')->nullable();
+            $table->string('status')->default('pending'); // pending, in_transit, delivered
+            $table->decimal('shipping_cost', 12, 2)->default(0);
+            $table->text('notes')->nullable();
+            $table->timestamps();
 
-        //     $table->index('receipt_number');
-        //     $table->index('tracking_number');
-        // });
+            $table->index('receipt_number');
+            $table->index('tracking_number');
+        });
     }
 
     /**
