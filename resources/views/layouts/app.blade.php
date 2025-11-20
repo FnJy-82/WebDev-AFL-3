@@ -110,7 +110,7 @@
                 <i class="bi bi-truck"></i> Suppliers
             </a>
             <hr style="border-color: rgba(255,255,255,0.2);">
-            <a class="nav-link {{ request()->routeIs('stock-in.*') ? 'active' : '' }}" href="{{ route('stock-in.index') }}">
+            {{-- <a class="nav-link {{ request()->routeIs('stock-in.*') ? 'active' : '' }}" href="{{ route('stock-in.index') }}">
                 <i class="bi bi-arrow-down-circle"></i> Stock In
             </a>
             <a class="nav-link {{ request()->routeIs('stock-out.*') ? 'active' : '' }}" href="{{ route('stock-out.index') }}">
@@ -122,7 +122,7 @@
             <hr style="border-color: rgba(255,255,255,0.2);">
             <a class="nav-link {{ request()->routeIs('reports.*') ? 'active' : '' }}" href="{{ route('reports.index') }}">
                 <i class="bi bi-file-earmark-bar-graph"></i> Reports
-            </a>
+            </a> --}}
         </nav>
     </div>
 

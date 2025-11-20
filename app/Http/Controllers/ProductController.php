@@ -126,6 +126,7 @@ class ProductController extends Controller
             'purchase_price' => 'required|numeric|min:0',
             'selling_price' => 'required|numeric|min:0',
             'minimum_stock' => 'required|integer|min:0',
+            'current_stock' => 'required|integer|min:0',
             'unit' => 'required|string|max:50',
             'color' => 'nullable|string|max:50',
             'size' => 'nullable|string|max:50',

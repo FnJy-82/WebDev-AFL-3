@@ -32,14 +32,10 @@ Route::get('/', function () {
     // Fetch some suppliers to show on the homepage (e.g., the first 6)
     $suppliers = Supplier::take(6)->get();
 
-
-    $shippingPartners = ShippingPartner::all();
-
     // Pass all three variables to the 'home' view
     return view('home', [
         'warehouse' => $warehouse,
-        'suppliers' => $suppliers,
-        'shippingPartners' => $shippingPartners
+        'suppliers' => $suppliers
     ]);
 })->name('home');
 
@@ -63,49 +59,55 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     // Profile routes (from Breeze)
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::get('/profile/info', [ProfileController::class, 'updateProfileInformationForm'])->name('profile.partials.info');
+    Route::get('/profile/password', [ProfileController::class, 'updatePasswordForm'])->name('profile.partials.password');
+    Route::get('/profile/delete', [ProfileController::class, 'deleteUserForm'])->name('profile.partials.delete');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    Route::put('/profile/password-update', [ProfileController::class, 'updatePassword'])->name('profile.password.custom_update');
 
     // Suppliers
     // OLD: Route::get('/suppliers', [SupplierController::class, 'index'])->name('suppliers');
     // NEW: Use Route::resource to match the other models and create 'suppliers.index'
     Route::resource('suppliers', SupplierController::class);
-
     // Products
     Route::resource('products', ProductController::class);
 
-    // Stock In
-    Route::resource('stock-in', StockInController::class);
+    // // Stock In
+    // Route::resource('stock-in', StockInController::class);
 
-    // Stock Out
-    Route::resource('stock-out', StockOutController::class);
+    // // Stock Out
+    // Route::resource('stock-out', StockOutController::class);
 
-    // Receipts
-    Route::resource('receipts', ReceiptController::class);
+    // // Receipts
+    // Route::resource('receipts', ReceiptController::class);
 
-    // Reports
-    Route::prefix('reports')->name('reports.')->group(function () {
-        Route::get('/', [ReportController::class, 'index'])->name('index');
-        Route::get('/daily', [ReportController::class, 'daily'])->name('daily');
-        Route::get('/monthly', [ReportController::class, 'monthly'])->name('monthly');
-        Route::get('/export', [ReportController::class, 'export'])->name('export');
-    });
+    // // Reports
+    // Route::prefix('reports')->name('reports.')->group(function () {
+    //     Route::get('/', [ReportController::class, 'index'])->name('index');
+    //     Route::get('/daily', [ReportController::class, 'daily'])->name('daily');
+    //     Route::get('/monthly', [ReportController::class, 'monthly'])->name('monthly');
+    //     Route::get('/export', [ReportController::class, 'export'])->name('export');
+    // });
 
-    // API endpoints for AJAX
+    // // API endpoints for AJAX
     Route::prefix('api')->name('api.')->group(function () {
         Route::get('/products/{product}', function(\App\Models\Product $product) {
             return response()->json($product->load('category', 'warehouse'));
         })->name('products.show');
-
-        Route::get('/stock-check/{product}', function(\App\Models\Product $product) {
-            return response()->json([
-                'current_stock' => $product->current_stock,
-                'minimum_stock' => $product->minimum_stock,
-                'is_low_stock' => $product->is_low_stock,
-                'status' => $product->stock_status,
-            ]);
-        })->name('stock.check');
     });
+    // Route::prefix('api')->name('api.')->group(function () {
+
+    //     Route::get('/stock-check/{product}', function(\App\Models\Product $product) {
+    //         return response()->json([
+    //             'current_stock' => $product->current_stock,
+    //             'minimum_stock' => $product->minimum_stock,
+    //             'is_low_stock' => $product->is_low_stock,
+    //             'status' => $product->stock_status,
+    //         ]);
+    //     })->name('stock.check');
+    // });
 });
 
 
