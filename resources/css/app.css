@@ -1,3 +1,7 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* ...existing code... */
+@import "bootstrap/dist/css/bootstrap.min.css";
+
+/* Add any project-specific overrides below */
+:root {
+  --primary-color: #4F46E5;
+}

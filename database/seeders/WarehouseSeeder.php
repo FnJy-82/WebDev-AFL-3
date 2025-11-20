@@ -16,7 +16,7 @@ class WarehouseSeeder extends Seeder
             'city' => 'Surabaya',
             'province' => 'Jawa Timur',
             'postal_code' => '60123',
-            'manager_name' => 'Budi Santoso',
+            'manager_name' => 'Celine',
             'phone' => '031-1234567',
             'capacity' => 10000,
             'is_active' => true,
