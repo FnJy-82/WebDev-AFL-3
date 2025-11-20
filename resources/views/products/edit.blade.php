@@ -92,11 +92,19 @@
                         </div>
                     </div>
 
-                    <div class="row">
-                        <div class="col-md-4 mb-3">
+                   <div class="row">
+                        <div class="col-md-6 mb-3">
                             <label class="form-label">Current Stock <span class="text-danger">*</span></label>
                             <input type="number" class="form-control @error('current_stock') is-invalid @enderror" name="current_stock" value="{{ old('current_stock', $product->current_stock) }}" required>
                             @error('current_stock')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Minimum Stock <span class="text-danger">*</span></label>
+                            <input type="number" class="form-control @error('minimum_stock') is-invalid @enderror" name="minimum_stock" value="{{ old('minimum_stock', $product->minimum_stock) }}" required>
+                            @error('minimum_stock')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
