@@ -136,6 +136,13 @@ class ProductController extends Controller
             'suppliers.*' => 'exists:suppliers,id',
         ]);
 
+
+        // Handle Image Deletion
+        if ($request->has('delete_image') && $product->image) {
+            Storage::disk('public')->delete('products/' . $product->image); // Adjust path if needed
+            $validated['image'] = null; // Set database column to null
+        }
+
         // Handle image upload
         if ($request->hasFile('image')) {
             // Delete old image
@@ -145,7 +152,7 @@ class ProductController extends Controller
 
             $image = $request->file('image');
             $imageName = time() . '_' . Str::slug($validated['name']) . '.' . $image->getClientOriginalExtension();
-            $image->storeAs('public/products', $imageName);
+            $image->storeAs('products', $imageName, 'public');
             $validated['image'] = $imageName;
         }
 

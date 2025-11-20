@@ -115,7 +115,7 @@
                         <label class="text-muted small d-block mb-2">Suppliers</label>
                         @if($product->suppliers->count() > 0)
                             @foreach($product->suppliers as $supplier)
-                                <a href="{{-- route('suppliers.show', $supplier) --}}#" class="badge bg-info text-decoration-none p-2 me-1">
+                                <a href="#" class="badge bg-info text-decoration-none p-2 me-1">
                                     <i class="bi bi-truck"></i> {{ $supplier->name }}
                                 </a>
                             @endforeach
@@ -153,10 +153,13 @@
                 </div>
                 <div class="card-body text-center p-4">
                     @if($product->image)
+                        {{-- SAYA TAMBAHKAN ONERROR: Jika gambar gagal loading, akan muncul teks peringatan --}}
                         <img src="{{ asset('storage/products/' . $product->image) }}" 
                              alt="{{ $product->name }}" 
                              class="img-fluid rounded shadow-sm"
-                             style="max-height: 300px; width: auto;">
+                             style="max-height: 300px; width: auto;"
+                             onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'alert alert-warning\'>Image not found. Run: php artisan storage:link</div>';">
+                        
                         <div class="mt-3">
                             <a href="{{ asset('storage/products/' . $product->image) }}" target="_blank" class="btn btn-sm btn-outline-primary">
                                 <i class="bi bi-zoom-in"></i> View Full Size
