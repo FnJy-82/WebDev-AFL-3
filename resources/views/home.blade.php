@@ -72,34 +72,5 @@
     </div>
 </section>
 
-<!-- Shipping Partners -->
-<section class="py-5">
-    <div class="container">
-        <div class="row mb-4">
-            <div class="col text-center">
-                <h2 class="fw-bold">Partner Pengiriman</h2>
-                <p class="text-muted">Didukung oleh jasa pengiriman terpercaya</p>
-            </div>
-        </div>
-        <div class="row">
-            @foreach($shippingPartners as $partner)
-            <div class="col-lg-4 col-md-6 mb-4">
-                <div class="card h-100 text-center">
-                    <div class="card-body">
-                        <img src="{{ $partner->logo_url }}" alt="{{ $partner->name }}" class="img-fluid mb-3" style="max-height: 60px;">
-                        <h5 class="card-title">{{ $partner->name }}</h5>
-                        <p class="text-muted small">{{ $partner->service_type }}</p>
-                        <div class="coverage-areas">
-                            @foreach($partner->coverage_list as $area)
-                            <span class="badge bg-light text-dark me-1 mb-1">{{ trim($area) }}</span>
-                            @endforeach
-                        </div>
-                    </div>
-                </div>
-            </div>
-            @endforeach
-        </div>
-    </div>
-</section>
 
 @endsection

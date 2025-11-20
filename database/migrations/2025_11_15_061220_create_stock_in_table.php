@@ -11,24 +11,24 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('stock_in', function (Blueprint $table) {
-            $table->id();
-            $table->string('transaction_code')->unique();
-            $table->foreignId('product_id')->constrained()->onDelete('cascade');
-            $table->foreignId('supplier_id')->constrained()->onDelete('cascade');
-            $table->foreignId('warehouse_id')->constrained()->onDelete('cascade');
-            $table->foreignId('user_id')->constrained()->onDelete('cascade'); // who input
-            $table->integer('quantity');
-            $table->decimal('unit_price', 12, 2)->default(0);
-            $table->decimal('total_price', 12, 2)->default(0);
-            $table->date('transaction_date');
-            $table->text('notes')->nullable();
-            $table->string('reference_number')->nullable(); // nomor PO/invoice
-            $table->timestamps();
+        // Schema::create('stock_in', function (Blueprint $table) {
+        //     $table->id();
+        //     $table->string('transaction_code')->unique();
+        //     $table->foreignId('product_id')->constrained()->onDelete('cascade');
+        //     $table->foreignId('supplier_id')->constrained()->onDelete('cascade');
+        //     $table->foreignId('warehouse_id')->constrained()->onDelete('cascade');
+        //     $table->foreignId('user_id')->constrained()->onDelete('cascade'); // who input
+        //     $table->integer('quantity');
+        //     $table->decimal('unit_price', 12, 2)->default(0);
+        //     $table->decimal('total_price', 12, 2)->default(0);
+        //     $table->date('transaction_date');
+        //     $table->text('notes')->nullable();
+        //     $table->string('reference_number')->nullable(); // nomor PO/invoice
+        //     $table->timestamps();
 
-            $table->index('transaction_code');
-            $table->index('transaction_date');
-        });
+        //     $table->index('transaction_code');
+        //     $table->index('transaction_date');
+        // });
     }
 
     /**
