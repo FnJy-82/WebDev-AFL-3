@@ -1,5 +1,6 @@
 @extends('layouts.app')
 
+@section('page-title', 'Suppliers')
 @section('content')
 <div class="container">
     <div class="row mb-4">

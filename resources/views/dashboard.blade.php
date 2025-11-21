@@ -3,10 +3,6 @@
 @section('title', 'Dashboard')
 @section('page-title', 'Dashboard')
 
-@section('breadcrumb')
-    <li class="breadcrumb-item active">Dashboard</li>
-@endsection
-
 @section('content')
 <!-- Statistics Cards -->
 <div class="row g-4 mb-4">
@@ -81,7 +77,7 @@
                         <i class="bi bi-exclamation-triangle"></i>
                     </div>
                     <div class="flex-grow-1">
-                        <p class="mb-0 fw-bold">{{ $alert->product->name }}</p>
+                        <p class="mb-0 fw-bold">{{ $alert->product ? $alert->product->name : 'Unknown Product' }}</p>
                         <small class="text-muted">Stock: {{ $alert->current_stock }} / Min: {{ $alert->threshold }}</small>
                     </div>
                 </div>

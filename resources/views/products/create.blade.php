@@ -2,13 +2,7 @@
 
 @section('title', 'Add Product')
 @section('page-title', 'Add New Product')
-
-@section('breadcrumb')
-    <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
-    <li class="breadcrumb-item"><a href="{{ route('products.index') }}">Products</a></li>
-    <li class="breadcrumb-item active">Add New</li>
-@endsection
-
+~
 @section('content')
 <div class="card border-0 shadow-sm">
     <div class="card-body">

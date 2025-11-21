@@ -161,7 +161,7 @@
                 @else
                     {{-- This will show if the user is a GUEST --}}
                     <div>
-                        <a href="{{ route('login') }}" class="btn btn-outline-light me-2">
+                        <a href="{{ route('login') }}" class="btn btn-light me-2">
                             <i class="bi bi-box-arrow-in-right"></i> Login
                         </a>
                         <a href="{{ route('register') }}" class="btn btn-light">

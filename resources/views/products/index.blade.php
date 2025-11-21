@@ -3,11 +3,6 @@
 @section('title', 'Products')
 @section('page-title', 'Products')
 
-@section('breadcrumb')
-    <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
-    <li class="breadcrumb-item active">Products</li>
-@endsection
-
 @section('content')
 <div class="card border-0 shadow-sm">
     <div class="card-body">
